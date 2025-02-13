@@ -109,3 +109,8 @@ after(function() {
   chai.request(server)
   .get('/')
 });
+
+// Close the remaining suites
+  }); // Close 'Famous Italian Explorers' form suite
+}); // Close 'Functional Tests with Zombie.js' suite
+}); // Close main 'Functional Tests' suite
