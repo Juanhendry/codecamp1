@@ -47,8 +47,8 @@ suite('Functional Tests', function () {
       assert.equal(res.type, 'application/json', 'Response should be json');
       assert.equal(
         res.body.name,
-        'Cristoforo',
-        'res.body.name should be "Cristoforo"'
+        'da Verrazzano',
+        'res.body.name should be "da Verrazzano"'
       );
       assert.equal(
         res.body.surname,
@@ -60,16 +60,23 @@ suite('Functional Tests', function () {
         });
     });
     // #4
-    test('Send {surname: "da Verrazzano"}', function (done) {
+test('send {surname: "da Verrazzano"}', function(done) {
+  /** place the chai-http request code here... **/
+  chai
+    .request(server)
+    .put('/travellers')
+    .send({ surname: 'da Verrazzano' })
+    /** place your tests inside the callback **/
+    .end(function(err, res) {
       assert.equal(res.status, 200, 'response status should be 200');
       assert.equal(res.type, 'application/json', 'Response should be json');
       assert.equal(res.body.name, 'Giovanni');
       assert.equal(res.body.surname, 'da Verrazzano');
+
       done();
     });
-  });
 });
-
+    
 const Browser = require('zombie');
 
 suite('Functional Tests with Zombie.js', function () {
