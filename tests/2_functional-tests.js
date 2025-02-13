@@ -60,7 +60,7 @@ suite('Functional Tests', function () {
         });
     });
     // #4
-test('send {surname: "da Verrazzano"}', function(done) {
+  test('send {surname: "da Verrazzano"}', function(done) {
   /** place the chai-http request code here... **/
   chai
     .request(server)
@@ -76,7 +76,7 @@ test('send {surname: "da Verrazzano"}', function(done) {
       done();
     });
 });
-    
+  });
 const Browser = require('zombie');
 
 suite('Functional Tests with Zombie.js', function () {
@@ -109,8 +109,3 @@ after(function() {
   chai.request(server)
   .get('/')
 });
-
-// Close the remaining suites
-  }); // Close 'Famous Italian Explorers' form suite
-}); // Close 'Functional Tests with Zombie.js' suite
-}); // Close main 'Functional Tests' suite
