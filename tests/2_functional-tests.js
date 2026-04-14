@@ -56,17 +56,21 @@ suite('Functional Tests', function () {
             'Colombo',
             'res.body.surname should be "Colombo"'
           );
+          done();
         });
     });
     // #4
-    test('send {surname: "da Verrazzano"}', function(done) {
+    test('Send {surname: "da Verrazzano"}', function (done) {
       chai
         .request(server)
+        .keepOpen()
         .put('/travellers')
-        .send({ surname: 'da Verrazzano' })
-        .end(function(err, res) {
-          assert.equal(res.status, 200, 'response status should be 200');
-          assert.equal(res.type, 'application/json', 'Response should be json');
+        .send({
+          surname: 'da Verrazzano'
+        })
+        .end(function (err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.type, 'application/json');
           assert.equal(res.body.name, 'Giovanni');
           assert.equal(res.body.surname, 'da Verrazzano');
           done();
@@ -75,11 +79,15 @@ suite('Functional Tests', function () {
   });
 
   const Browser = require('zombie');
-  Browser.site = 'https://boilerplate-mochachai.your-username.repl.co';
-  const browser = new Browser();
+  Browser.site = 'http://localhost:3000';
 
   suite('Functional Tests with Zombie.js', function () {
     this.timeout(5000);
+    const browser = new Browser();
+
+    suiteSetup(function(done) {
+      return browser.visit('/', done);
+    });
 
     suite('Headless browser', function () {
       test('should have a working "site" property', function() {
@@ -89,13 +97,13 @@ suite('Functional Tests', function () {
 
     suite('"Famous Italian Explorers" form', function () {
       // #5
-      test('submit "surname" : "Colombo" - write your e2e test...', function(done) {
+      test('Submit the surname "Colombo" in the HTML form', function (done) {
         browser.fill('surname', 'Colombo').then(() => {
           browser.pressButton('submit', () => {
             browser.assert.success();
             browser.assert.text('span#name', 'Cristoforo');
             browser.assert.text('span#surname', 'Colombo');
-            browser.assert.element('span#dates', '1');
+            browser.assert.elements('span#dates', 1);
             done();
           });
         });
